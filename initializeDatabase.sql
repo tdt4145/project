@@ -1,6 +1,6 @@
 CREATE TABLE workout (
 workoutID INT PRIMARY KEY,
-workoutDate
+workoutDate  DATE,
 duration INT,
 personalForm INT,
 personalFeat INT,
@@ -32,7 +32,7 @@ CREATE TABLE exerciseInWorkout(
   FOREIGN KEY(exerciseID)
       REFERENCES exercise(exerciseID)
       ON DELETE CASCADE,
-  FOREIGN KEY(workouID)
+  FOREIGN KEY(workoutID)
       REFERENCES workout(workoutID)
       ON DELETE CASCADE
 );
