@@ -34,10 +34,10 @@ CREATE TABLE ExerciseInWorkout(
   numberOfSets INT,
   PRIMARY KEY (exerciseID, workoutID),
   FOREIGN KEY(exerciseID)
-      REFERENCES exercise(exerciseID)
+      REFERENCES Exercise(exerciseID)
       ON DELETE CASCADE,
   FOREIGN KEY(workoutID)
-      REFERENCES workout(workoutID)
+      REFERENCES Workout(workoutID)
       ON DELETE CASCADE
 );
 
@@ -46,21 +46,21 @@ CREATE TABLE ExerciseOnEquipment(
   exerciseID INT,
   PRIMARY KEY (equipmentID, exerciseID),
   FOREIGN KEY(equipmentID)
-      REFERENCES equipment(equipmentID)
+      REFERENCES Equipment(equipmentID)
       ON DELETE CASCADE,
   FOREIGN KEY(exerciseID)
-      REFERENCES exercise(exerciseID)
+      REFERENCES Exercise(exerciseID)
       ON DELETE CASCADE
 );
 
 CREATE TABLE ExerciseInGroup(
   exerciseID INT,
   exercisegroupID INT,
-  PRIMARY KEY (exerciseID, groupID),
+  PRIMARY KEY (exerciseID, exercisegroupID),
   FOREIGN KEY(exerciseID)
-      REFERENCES exercise(exerciseID)
+      REFERENCES Exercise(exerciseID)
       ON DELETE CASCADE,
   FOREIGN KEY(exerciseGroupID)
-      REFERENCES exerciseGroup(exerciseGroupID)
+      REFERENCES ExerciseGroup(exerciseGroupID)
       ON DELETE CASCADE
 );
