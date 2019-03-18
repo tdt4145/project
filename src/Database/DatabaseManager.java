@@ -28,4 +28,42 @@ public class DatabaseManager {
 			}
 	
 	}
+	
+	private static void closeConnection() {
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	
+	private static ResultSet getExercises() {
+		String queryString = "FROM Excersice SELECT *";
+		ResultSet resultSet = null;
+		resultSet = executeQuery(queryString);
+		return resultSet;	
+	}
+	
+	
+	private static ResultSet executeQuery(String queryString) {
+		ResultSet resultSet = null;
+		try {
+
+			Statement statement = connection.createStatement();
+			statement.executeQuery(queryString);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			// Her er det kanskje aktuelt å prøve å åpne connection igjen.
+			e.printStackTrace();
+		}
+		
+		return resultSet;
+		
+		
+	}
+	
+	public static void main(String[] args) {
+		
+	}
 }
