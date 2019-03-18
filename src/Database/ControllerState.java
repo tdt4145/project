@@ -1,0 +1,11 @@
+package Database;
+
+public enum ControllerState {
+	INIT,
+	INSERT_ACTIVITY,
+	INSERT_EXERCISE,
+	INSERT_EQUIPMENT,
+	INSERT_EXERCISE_GROUP,
+	INSERT_WORKOUT
+
+}

@@ -9,7 +9,7 @@ import java.sql.Statement;
 
 public class DatabaseManager {
 	private static final String DB_DRIVER_PATH = "com.mysql.cj.jdbc.Driver", 
-			DB_NAME="", DB_USERNAME = "", DB_PASSWORD = "", 
+			DB_NAME="database_name", DB_USERNAME = "username", DB_PASSWORD = "password", 
 			CONNECTION_STRING = "jdbc:mysql://mysql.stud.ntnu.no/" + DB_NAME + "?serverTimezone=UTC";
 	
 	private static Connection connection;
@@ -21,10 +21,14 @@ public class DatabaseManager {
 	
 	private static void openConnection() {
 			try {
+				Class.forName("com.mysql.jdbc.Driver");
 				connection = DriverManager.getConnection(CONNECTION_STRING, DB_USERNAME, DB_PASSWORD);
-			} catch (SQLException e) {
+			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				System.out.println();
 			}
 	
 	}
@@ -42,7 +46,7 @@ public class DatabaseManager {
 		String queryString = "FROM Excersice SELECT *";
 		ResultSet resultSet = null;
 		resultSet = executeQuery(queryString);
-		return resultSet;	
+		return resultSet;
 	}
 	
 	

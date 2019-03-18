@@ -1,7 +1,8 @@
+package Database;
 import java.sql.*;  
 
 
-class MysqlCon{  
+class DatabaseConnectivity{  
 
 	public static void main(String args[]){  
 		try{  
