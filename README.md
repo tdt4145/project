@@ -4,24 +4,24 @@
 Linux Ubuntu
 -------------------------
 
-1. Setup your computer to accept software from packages.ros.org:
+1. Install Java -> Mysql driver:
 	```bash
 	$ sudo apt-get install libmysql-java
 	```
 
-2. Set up your keys:
+2. Export path to driver:
 	```bash
 	$ export CLASSPATH=./:/usr/share/java/mysql-connector-java.jar
 	```
 
 ## 2. run ##
 
-1. Setup your computer to accept software from packages.ros.org:
+1. Compile project:
 	```bash
 	$ javac DatabaseConnectivity.java
 	```
 
-2. Set up your keys:
+2. Run class:
 	```bash
 	$ java MysqlCon
 	```
