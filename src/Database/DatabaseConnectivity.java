@@ -6,7 +6,7 @@ class MysqlCon{
 	public static void main(String args[]){  
 		try{  
 			Class.forName("com.mysql.jdbc.Driver");  
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/workoutLog","root","password");  
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/workoutLog?autoReconnect=true&useSSL=false","root","password");  
 			
 			//here 'workoutLog' is database name, 'root' is username and passwod is 'password'  
 			Statement stmt=con.createStatement();  
