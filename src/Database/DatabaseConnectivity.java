@@ -8,7 +8,7 @@ class MysqlCon{
 			Class.forName("com.mysql.jdbc.Driver");  
 			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/workoutLog","root","password");  
 			
-			//here sonoo is database name, root is username and password  
+			//here 'workoutLog' is database name, 'root' is username and passwod is 'password'  
 			Statement stmt=con.createStatement();  
 			ResultSet rs=stmt.executeQuery("SELECT * FROM Exercise");  
 		while(rs.next())  
