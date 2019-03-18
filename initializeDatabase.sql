@@ -1,33 +1,37 @@
-CREATE TABLE workout (
+CREATE TABLE Workout (
 workoutID INT PRIMARY KEY,
 workoutDate  DATE,
-duration INT,
+workoutTime TIME,
+duration TIME,
 personalForm INT,
 personalFeat INT,
 note VARCHAR(100)
 );
 
-CREATE TABLE exercise(
+CREATE TABLE Exercise(
   exerciseID INT PRIMARY KEY,
-  exerciseName VARCHAR(20),
+  name VARCHAR(20),
+  description VARCHAR(100) DEFAULT NULL
+);
+
+CREATE TABLE Equipment(
+  equipmentID INT PRIMARY KEY,
+  name VARCHAR(20),
   description VARCHAR(100)
 );
 
-CREATE TABLE equipment(
-  equipmentID INT PRIMARY KEY,
-  equipmentName VARCHAR(20)
+CREATE TABLE ExerciseGroup(
+  exerciseGroupID INT PRIMARY KEY,
+  name VARCHAR(20),
+  description VARCHAR(100)
 );
 
-CREATE TABLE exerciseGroup(
-  groupID INT PRIMARY KEY
-);
-
-CREATE TABLE exerciseInWorkout(
+CREATE TABLE ExerciseInWorkout(
   exerciseID INT,
   workoutID INT,
+  exerciseFeat INT,
   weight INT,
-  sets INT,
-  description VARCHAR(100),
+  numberOfSets INT,
   PRIMARY KEY (exerciseID, workoutID),
   FOREIGN KEY(exerciseID)
       REFERENCES exercise(exerciseID)
@@ -37,7 +41,7 @@ CREATE TABLE exerciseInWorkout(
       ON DELETE CASCADE
 );
 
-CREATE TABLE equipmentInExercise(
+CREATE TABLE ExerciseOnEquipment(
   equipmentID INT,
   exerciseID INT,
   PRIMARY KEY (equipmentID, exerciseID),
@@ -49,14 +53,14 @@ CREATE TABLE equipmentInExercise(
       ON DELETE CASCADE
 );
 
-CREATE TABLE exerciseInGroup(
+CREATE TABLE ExerciseInGroup(
   exerciseID INT,
-  groupID INT,
+  exercisegroupID INT,
   PRIMARY KEY (exerciseID, groupID),
   FOREIGN KEY(exerciseID)
       REFERENCES exercise(exerciseID)
       ON DELETE CASCADE,
-  FOREIGN KEY(groupID)
-      REFERENCES exerciseGroup(groupID)
+  FOREIGN KEY(exerciseGroupID)
+      REFERENCES exerciseGroup(exerciseGroupID)
       ON DELETE CASCADE
 );
