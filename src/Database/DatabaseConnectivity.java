@@ -1,4 +1,3 @@
-package Database;
 import java.sql.*;  
 
 
@@ -13,32 +12,46 @@ class DatabaseConnectivity{
 	// Variables for executing queries
 	private static Connection con;
 	private static ResultSet rs;
+	private static Statement stmt;
 
 	// Function for executing
-	protected static ResultSet executeMyQuery(String query) {
+	protected static ResultSet executeGetQuery(String query) {
 
 		try{  
 
 			// Prepare your statement 
-			Statement stmt=con.createStatement();  
+			stmt=con.createStatement();  
 			
 			// Execute query and return object
 			rs=stmt.executeQuery(query);  
 
-		// print every attribute
-		while(rs.next())  
-			System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getString(3));  
-
 		// if query fails	
-		}catch(Exception e){ 
+		}catch(SQLException e){ 
 			System.out.println(e);
-
 		} 
 
 		// return result
 		return rs;
 	}
 
+		// Function for executing
+	protected static boolean executeSetQuery(String table, String values) {
+
+		try{  
+
+			// Prepare your statement 
+			stmt=con.createStatement();  
+			stmt.executeUpdate(table + values);
+
+		// if query fails	
+		}catch(SQLException e){ 
+			System.out.println(e);
+			return false;
+		} 
+
+		// return result
+		return true;
+	}
 
 	// Open SQL connection
 	private static void openConnection() {
@@ -74,7 +87,23 @@ class DatabaseConnectivity{
 		// test
 		try{
 			openConnection();
-			executeMyQuery("SELECT * FROM Exercise");
+			//ResultSet rs = executeMyQuery("SELECT * FROM Exercise");
+			//int rs = executeUpdate("INSERT INTO Exercise VALUES(1,'Petter', 'har bursdag);");
+					// Prepare your statement 
+			rs = executeGetQuery("SELECT * FROM Exercise");
+			
+			while(rs.next()){  
+				System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getString(3)); 
+			}		
+
+			boolean completed = executeSetQuery("INSERT INTO Exercise ", "VALUES (18, 'Petter', 'har bursdag')");
+			System.out.println(comleted);
+
+			rs = executeGetQuery("SELECT * FROM Exercise");			
+			while(rs.next()){  
+				System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getString(3)); 
+			}		
+
 			closeConnection();
 
 		}catch(Exception e){
