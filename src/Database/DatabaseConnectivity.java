@@ -15,7 +15,7 @@ class DatabaseConnectivity{
 	private static Statement stmt;
 
 	// Function for executing
-	protected static ResultSet executeGetQuery(String query) {
+	public static ResultSet executeGetQuery(String query) {
 
 		try{  
 
@@ -35,7 +35,7 @@ class DatabaseConnectivity{
 	}
 
 		// Function for executing
-	protected static boolean executeSetQuery(String table, String values) {
+	public static boolean executeSetQuery(String table, String values) {
 
 		try{  
 
@@ -54,7 +54,7 @@ class DatabaseConnectivity{
 	}
 
 	// Open SQL connection
-	private static void openConnection() {
+	public static void openConnection() {
 		try{  
 			// Find drivers
 			Class.forName(DB_DRIVER_PATH);  
@@ -69,7 +69,7 @@ class DatabaseConnectivity{
 
 
 	// Close SQL connection
-	private static void closeConnection(){
+	public static void closeConnection(){
 
 		try{
 			// close connection to database
@@ -97,13 +97,12 @@ class DatabaseConnectivity{
 			}		
 
 			boolean completed = executeSetQuery("INSERT INTO Exercise ", "VALUES (18, 'Petter', 'har bursdag')");
-			System.out.println(comleted);
+			System.out.println(completed);
 
 			rs = executeGetQuery("SELECT * FROM Exercise");			
 			while(rs.next()){  
 				System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getString(3)); 
 			}		
-
 			closeConnection();
 
 		}catch(Exception e){
