@@ -1,10 +1,12 @@
+package classes;
+
 public class Equipment {
-  private int EquipmentID;
-  private String name;
-  private String description;
+  int EquipmentID;
+  String name;
+  String description;
 
   public Equipment(String name, String description){
-    this->name = name;
-    this->description = description;
+    this.name = name;
+    this.description = description;
   }
 }
