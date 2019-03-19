@@ -17,14 +17,14 @@ public class Workout {
     this.name = name;
     this.description = description;
     this.date =date;
-    this.ime = time;
+    this.time = time;
     this.duration = duration;
     this.workoutFeat = workoutFeat;
     this.exercisesInWorkout = new ArrayList<Exercise>();
-    this.exercisesInfoInWorkout = new ArrayList<ExerciseInfo>();
+    this.exerciseInfoInWorkout = new ArrayList<ExerciseInfo>();
   }
-  public static void addExerciseAndInfo(Exercise exercise, ExerciseInfo exerciseInfo){
+  public void addExerciseAndInfo(Exercise exercise, ExerciseInfo exerciseInfo){
     this.exercisesInWorkout.add(exercise);
-    this.exercisesInfoInWorkout.add(exerciseInfo);
+    this.exerciseInfoInWorkout.add(exerciseInfo);
   }
 }

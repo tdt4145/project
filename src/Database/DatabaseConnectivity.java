@@ -1,7 +1,9 @@
+package Database;
+
 import java.sql.*;  
 
 
-class DatabaseConnectivity{  
+public class DatabaseConnectivity{  
 
 	// Variables for connecting to database
 	private static final String DB_DRIVER_PATH = "com.mysql.jdbc.Driver";
@@ -35,13 +37,11 @@ class DatabaseConnectivity{
 	}
 
 		// Function for executing
-	public static boolean executeSetQuery(String table, String values) {
-
+	public static boolean executeSetQuery(String queryString) {
 		try{  
-
 			// Prepare your statement 
 			stmt=con.createStatement();  
-			stmt.executeUpdate(table + values);
+			stmt.executeUpdate(queryString);
 
 		// if query fails	
 		}catch(SQLException e){ 
@@ -82,7 +82,7 @@ class DatabaseConnectivity{
 
 
 
-	// Main
+	/*// Main
 	public static void main(String args[]){
 		// test
 		try{
@@ -108,5 +108,5 @@ class DatabaseConnectivity{
 		}catch(Exception e){
 			System.out.println(e);
 		} 
-	}  
+	}  */
 }  		
