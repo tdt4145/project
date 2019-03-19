@@ -13,6 +13,7 @@ public class MainController {
 		this.controllerState = ControllerState.INIT;
 	}
 	
+	//Takes input and responds to the user and changes the state accordingly 
 	public void takeInput(String userString) {
 		if(userString == null) {
 			return;
@@ -91,7 +92,8 @@ public class MainController {
 		System.out.println("Velg mellom disse alternativene! (Choose between the following alternatives:)"
 				+ "\n 1. Register an excercise"
 				+ "\n 2. Register a workout"
-				+ "\n 3. Register something");
+				+ "\n 3. Register something"
+				+ "\n 4. See the n last workouts");
 		
 		
 		
