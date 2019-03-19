@@ -48,12 +48,12 @@ public class Handler {
     boolean isOK = executeSetQuery(queryString1);
 
     //return ExerciseID
-    String sqlString2  = "SELECT exerciseID FROM Exercise ORDER BY exerciseID DESC LIMIT 1;"
+    String sqlString2  = "SELECT exerciseID FROM Exercise ORDER BY exerciseID DESC LIMIT 1;";
     ResultSet rs = executeGetQuery(sqlString2);
     exerciseID = rs.getInt(1);
 
     String sqlString3 = "INSERT INTO ExerciseOnEquipment VALUES (" + exerciseID + ", " + Integer.toString(equipmentID) + ");";
-    isOK = executeSetQuery(queryString3)
+    isOK = executeSetQuery(queryString3);
     return isOK;
   }
 
@@ -66,11 +66,6 @@ public class Handler {
     ArrayList<String> exercises = new ArrayList<String>();
     ArrayList<ExerciseInfo> exerciseInfo = new ArrayList<exerciseInfo>();
   }
-
-
-
-
-
 
   public boolean getExerciseInGroup(String exerciseGroup) {
     String queryString  = "SELECT * FROM .....";
