@@ -17,59 +17,73 @@ public class MainController {
 		if(userString == null) {
 			return;
 		}
+		if(userString == "dev") {
+			System.out.println("State: " + this.controllerState + " ");
+		}
 		
 		switch (this.controllerState) {
 		case INIT:
 			switch (userString) {
 			case "1":
-				System.out.println("Når er det bare å kjøre inn data om øvelsen!");
+				System.out.println("Please input the excercise data in the following format (date, desc)");
 				this.controllerState = ControllerState.INSERT_EXERCISE;
 				return;
 			case "2":
-				System.out.println("Når er det bare å kjøre inn data om apparatet!");
+				System.out.println("Please input the equipment data in the following format (date, desc)");
 				this.controllerState = ControllerState.INSERT_EQUIPMENT;
 				return;
 			case "3":
-				System.out.println("Når er det bare å kjøre inn data om aktivitetsgruppen!");
-				this.controllerState = ControllerState.INSERT_EQUIPMENT;
+				System.out.println("Please input the excercise groupt data in the following format (date, desc)");
+				this.controllerState = ControllerState.INSERT_EXERCISE_GROUP;
 				return;
 			default:
 				break;
 			}
 			break;
 		case INSERT_EXERCISE:
-			System.out.println(Exercise.registerExercise(userString));
-			if(good) {
-				this.controllerState = controllerState.INIT;
+			if(!Handler.registerExercise(userString)) {
+				System.out.println("The data is not in the desired format. Please try again:");
+				break;
+			}else {
+				System.out.println("The data is successfully resgistered in the database!");
+				this.controllerState = ControllerState.INIT;
+				printMenu();
+			}
+		case INSERT_WORKOUT:
+			if(!Handler.registerWorkout(userString)) {
+				System.out.println("The data is not in the desired format. Please try again:");
+				break;
+			}else {
+				System.out.println("The data is successfully resgistered in the database!");
+				this.controllerState = ControllerState.INIT;
+				printMenu();
 			}
 			break;
-		case INSERT_WORKOUT:
-			System.out.println(registerWorkout(userString));
-			break;
 		case GET_EXCERSICE_IN_GROUP:
-			System.out.println(getExerciseInGroup(groupString)(userString));
+			if(!Handler.getExerciseInGooup(userString)) {
+				System.out.println("The data is not in the desired format. Please try again:");
+				break;
+			}else {
+				System.out.println("The data is successfully resgistered in the database!");
+				this.controllerState = ControllerState.INIT;
+				printMenu();
+				
+			}
 			break;
-
 		default:
 			break;
 		}
-		
 	}
 	
-	public String registerExercise(String exerciseString) {
-		//Try to create exersice in database, print eventuell feilmelding
-		return "Haha funker dritbra! Aktiviteten er inne i databasen!";
-	}
-	
-	public 
-	
-	public String getExerciseInGroup(String groupString) {
-		
-		//Try to create exersice in database, print eventuell feilmelding
-		return "Haha funker dritbra! Aktiviteten er inne i databasen!";
+	public void printMenu() {
+		System.out.println("Velg mellom disse alternativene! (Choose between the following alternatives:)"
+				+ "\n 1. Register an excercise"
+				+ "\n 2. Register a workout"
+				+ "\n 3. Register something");
 	}
 	
 	public static void main(String[] args) {
+		
 		MainController sessionController = new MainController();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		
