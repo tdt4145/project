@@ -9,19 +9,19 @@ note VARCHAR(100)
 );
 
 CREATE TABLE Exercise(
-  exerciseID INT PRIMARY KEY,
+  exerciseID INT PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(20),
   description VARCHAR(100) DEFAULT NULL
 );
 
 CREATE TABLE Equipment(
-  equipmentID INT PRIMARY KEY,
+  equipmentID INT PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(20),
   description VARCHAR(100)
 );
 
 CREATE TABLE ExerciseGroup(
-  exerciseGroupID INT PRIMARY KEY,
+  exerciseGroupID INT PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(20),
   description VARCHAR(100)
 );
