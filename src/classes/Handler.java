@@ -52,6 +52,44 @@ public class Handler {
     System.out.println("----- END OF LIST -----");
     return true;
   }
+  
+  public static boolean showAllWorkouts(){
+	    String queryString = "SELECT * FROM Workouts;";
+	    System.out.println("----- LIST OF ALL EXERCISE GROUPS -----");
+	    ResultSet rs = DatabaseConnectivity.executeGetQuery(queryString);
+	    try {
+			while(rs.next()) {
+			    System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getString(3));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    System.out.println("----- END OF LIST -----");
+	    return true;
+  }
+  
+  public static boolean showExercisesInGroup(String groupID){
+	  String sqlString = "SELECT name FROM Exercises JOIN ExerciseInGroup WHERE groupID = " + groupID;
+	    System.out.println("----- LIST OF ALL EXERCISES IN THIS GROUP-----");
+	    ResultSet rs = DatabaseConnectivity.executeGetQuery(sqlString);
+	    try {
+			while(rs.next()) {
+			    System.out.println(rs.getInt(1));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    System.out.println("----- END OF LIST -----");
+	  return true;
+  }
+  
+  public static boolean showMostFrequentExercise(){
+	  String sqlString = "SELECT name FROM Workout";
+	  //TODO
+	  return true;
+  }
 
   public static boolean registerEquipment(Equipment equipment){
     String queryString = "INSERT INTO Equipment VALUES (" + equipment.name + ", " + equipment.description + ");";
