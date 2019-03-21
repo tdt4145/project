@@ -98,26 +98,34 @@ public class Handler {
   }
 
   public static boolean registerExercise(Exercise exercise, String equipmentID){
-    String sqlString1 = "INSERT INTO Exercise VALUES (" + exercise.name + ", " + exercise.description + ");";
+    String sqlString1 = "INSERT INTO Exercise (name, description) VALUES ('" + exercise.name + "', '" + exercise.description + "');";
     boolean isOK = DatabaseConnectivity.executeSetQuery(sqlString1);
     
     String sqlString2  = "SELECT exerciseID FROM Exercise ORDER BY exerciseID DESC LIMIT 1;";
     ResultSet rs = DatabaseConnectivity.executeGetQuery(sqlString2);
     int exerciseID = 0;
+    int equipmentID_int = Integer.parseInt(equipmentID);
 	try {
-		exerciseID = rs.getInt(1);
+		// must have the while loop
+		while(rs.next()){  
+			exerciseID = rs.getInt(1); 
+		}		
+		//exerciseID = rs.getInt(1);
+		String exerciseID_string = Integer.toString(exerciseID);
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
     
-    String sqlString3 = "INSERT INTO ExerciseOnEquipment VALUES (" + exerciseID + ", " + equipmentID + ");";
+	
+    String sqlString3 = "INSERT INTO ExerciseOnEquipment VALUES (" + equipmentID + ", " +  exerciseID + ");";
+    System.out.println(sqlString3);
     isOK = DatabaseConnectivity.executeSetQuery(sqlString3);
     return isOK;
   }
 
   public static boolean registerWorkout(Workout workout) {
-    String queryString = "INSERT INTO workout VALUES (" + workout.name + ", " + workout.description + ")";
+    String queryString = "INSERT INTO Workout VALUES ('" + workout.name + "', '" + workout.description + "')";
     boolean rs = DatabaseConnectivity.executeSetQuery(queryString);
     
     

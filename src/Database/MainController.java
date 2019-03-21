@@ -94,7 +94,7 @@ public class MainController {
 			} catch (Exception e) {
 				System.out.println(e.toString());
 			}
-		
+			break;
 		case INSERT_EQUIPMENT:
 			try {
 				userStringSplit = userString.split(", ");
@@ -104,7 +104,7 @@ public class MainController {
 			} catch (Exception e) {
 				System.out.println("Error during registration of equipment. Try again!" + e.toString());
 			}
-		
+			break;
 		case CREATE_WORKOUT:
 			try {
 				userStringSplit = userString.split(", ");
@@ -118,7 +118,9 @@ public class MainController {
 			
 			break;
 		case INSERT_EXERCISE_INTO_WORKOUT:
-			if(userString == "done") {
+			System.out.println(userString);
+			if(userString.equals("done")) {
+				System.out.println("try");
 				//Trigger method in Handler to save the Workout object with the list of Exercises
 				this.newWorkout.addExerciseAndInfo(this.exerciseInfos);
 				Handler.registerWorkout(this.newWorkout);
