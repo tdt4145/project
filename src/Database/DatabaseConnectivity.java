@@ -90,36 +90,4 @@ public class DatabaseConnectivity{
 		 System.out.println(e);
 		}
 	}
-
-
-/*
-	// Main
-	public static void main(String args[]){
-		// test
-		ResultSet rs = null;
-		try{
-			System.out.println("HEUEHFANMD");
-			openConnection();
-			//ResultSet rs = executeMyQuery("SELECT * FROM Exercise");
-			//int rs = executeUpdate("INSERT INTO Exercise VALUES(1,'Petter', 'har bursdag);");
-					// Prepare your statement 
-			rs = executeGetQuery("SELECT * FROM Exercise");
-			
-			while(rs.next()){  
-				System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getString(3)); 
-			}		
-
-			boolean completed = executeSetQuery("INSERT INTO Exercise VALUES (18, 'Petter', 'har bursdag')");
-			System.out.println(completed);
-
-			rs = executeGetQuery("SELECT * FROM Exercise");			
-			while(rs.next()){  
-				System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getString(3)); 
-			}		
-			closeConnection();
-
-		}catch(Exception e){
-			System.out.println(e);
-		} 
-	}  */
 }  		

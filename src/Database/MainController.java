@@ -61,31 +61,36 @@ public class MainController {
 				return;
 			case "6":
 				Handler.showAllExercises();
+				System.out.print("Choose one of the main alternatives: (1-13)");
 				return;
 			case "7":
 				Handler.showAllWorkouts();
+				System.out.print("Choose one of the main alternatives: (1-13)");
 				return;
 			case "8":
 				Handler.showAllEquipment();
+				System.out.print("Choose one of the main alternatives: (1-13)");
 				return;
 			case "9":
 				Handler.showAllGroups();
+				System.out.print("Choose one of the main alternatives: (1-13)");
 				return;
 			case "10":
-				System.out.println("Please input the group for which you whish to se the exercises:");
-				//this.controllerState = ControllerState.INSERT_GROUP_NUMBER_FOR_VIEWING_EXERCISES;
+				System.out.println("Please input the group for which you whish to see the exercises:");
+				this.controllerState = ControllerState.INSERT_GROUP_ID_FOR_VIEWING_EXERCISES;
 				return;
 			case "11":
-				System.out.println("Please input the amount of the last completed workouts you whish to see:");
-				//this.controllerState = ControllerState.INSERT_NUMBER_FOR_VIEWING_LATEST_WORKOUTS;
+				System.out.println("Please input the number of the last completed workouts you whish to see:");
+				this.controllerState = ControllerState.INSERT_NUMBER_FOR_VIEWING_LATEST_WORKOUTS;
 				return;
 			case "12":
 				//TODO: Discuss with Petter the desired input format
-				System.out.println("Please input the the exercise ID and the time interval in the following format: \"ID\",\"DD.MM.YYYY\",\\\"DD.MM.YYYY\\\"");
-				//this.controllerState = ControllerState.INSERT_NUMBER_FOR_VIEWING_LATEST_WORKOUTS;
+				System.out.println("Please input the the exercise ID and the time interval(first date first) in the following format: (exerciseID, YYYY-MM-DD, YYYY-MM-DD)");
+				this.controllerState = ControllerState.RESULTS_FROM_A_EXERCISE_IN_TIME_INTERVAL;
 				return;
 			case "13":
 				Handler.showMostFrequentExercise();
+				System.out.print("Choose one of the main alternatives: (1-13)");
 				return;
 			default:
 				break;
@@ -100,6 +105,8 @@ public class MainController {
 			} catch (Exception e) {
 				System.out.println(e.toString());
 			}
+			this.controllerState = ControllerState.INIT;
+			System.out.print("Choose one of the main alternatives: (1-13)");
 			break;
 		case INSERT_EQUIPMENT:
 			try {
@@ -110,6 +117,8 @@ public class MainController {
 			} catch (Exception e) {
 				System.out.println("Error during registration of equipment. Try again!" + e.toString());
 			}
+			this.controllerState = ControllerState.INIT;
+			System.out.print("Choose one of the main alternatives: (1-13)");
 			break;
 		case CREATE_WORKOUT:
 			try {
@@ -121,7 +130,8 @@ public class MainController {
 			} catch (Exception e) {
 				System.out.println("Error during registration. Try again!" + e.toString());
 			}
-			
+			this.controllerState = ControllerState.INIT;
+			System.out.print("Choose one of the main alternatives: (1-13)");
 			break;
 		case CREATE_EXERCISE_GROUP:
 			try {
@@ -130,6 +140,8 @@ public class MainController {
 			} catch (Exception e) {
 				System.out.println("Error during registration of equipment. Try again!" + e.toString());
 			}
+			this.controllerState = ControllerState.INIT;
+			System.out.print("Choose one of the main alternatives: (1-13)");
 			break;
 		case INSERT_EXERCISE_INTO_WORKOUT:
 			if(userString.equals("done")) {
@@ -146,6 +158,8 @@ public class MainController {
 			} catch (Exception e) {
 				System.out.println("Error during regestration of exercise: " + e.toString());
 			}
+			this.controllerState = ControllerState.INIT;
+			System.out.print("Choose one of the main alternatives: (1-13)");
 			break;
 		case INSERT_EXERCISE_INTO_GROUP:
 			try {
@@ -154,9 +168,36 @@ public class MainController {
 			} catch (Exception e) {
 				System.out.println("Error during registration of exercise into group. Try again!" + e.toString());
 			}
+			this.controllerState = ControllerState.INIT;
+			System.out.print("Choose one of the main alternatives: (1-13)");
 			break;
-		case GET_EXCERSICE_IN_GROUP:
-				
+		case INSERT_GROUP_ID_FOR_VIEWING_EXERCISES:
+			try {
+				Handler.getExercisesInGroup(userString);	
+			} catch (Exception e) {
+				System.out.println("Error during retrieval of exercises in a group. Try again!" + e.toString());
+			}
+			this.controllerState = ControllerState.INIT;
+			System.out.print("Choose one of the main alternatives: (1-13)");
+			break;
+		case INSERT_NUMBER_FOR_VIEWING_LATEST_WORKOUTS:
+			try { 
+				Handler.getNLastWorkouts(userString);	
+			} catch (Exception e) {
+				System.out.println("Error during retrieval of last N workouts. Try again!" + e.toString());
+			}
+			this.controllerState = ControllerState.INIT;
+			System.out.print("Choose one of the main alternatives: (1-13)");
+			break;
+		case RESULTS_FROM_A_EXERCISE_IN_TIME_INTERVAL:
+			try {
+				userStringSplit = userString.split(", ");
+				Handler.getResultsInInterval(userStringSplit[0], userStringSplit[1], userStringSplit[2]);
+			} catch (Exception e) {
+				System.out.println("Error during retrieval of results for a workout in the time interval. Try again!" + e.toString());
+			}
+			this.controllerState = ControllerState.INIT;
+			System.out.print("Choose one of the main alternatives: (1-13)");
 			break;
 		default:
 			break;
@@ -177,8 +218,8 @@ public class MainController {
 		MainController sessionController = new MainController();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		
-		System.out.println("Hei og velkomment til en fantastisk treningsdagbok!");
-		System.out.println("Velg mellom disse alternativene! (Choose between the following alternatives:)"
+		System.out.println("Hi and welcome to this workout log!");
+		System.out.println("Choose between the following alternatives:)"
 				+ "\n 1. Register an excercise"
 				+ "\n 2. Register a workout"
 				+ "\n 3. Register an equipment"
