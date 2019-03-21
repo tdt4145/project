@@ -14,7 +14,7 @@ Linux Ubuntu
 	$ export CLASSPATH=./:/usr/share/java/mysql-connector-java.jar
 	```
 
-## 2. run ##
+## 2. run project files ##
 
 1. Compile project:
 	```bash
@@ -25,3 +25,10 @@ Linux Ubuntu
 	```bash
 	$ java MysqlCon
 	```
+## 3. run project as .jar ##
+
+1. Make executable:
+
+2. Run class:
+	```bash
+	$ java -jar workoutlog.jar
