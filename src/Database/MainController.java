@@ -71,7 +71,7 @@ public class MainController {
 			
 			
 		case CREATE_WORKOUT:
-			// Vil her be brukeren om å skrive inn en gyldig tuppel for å lage et workout-objekt
+
 			try {
 				userStringSplit = userString.split(", ");
 				Workout newWorkOut = new Workout(userString, userString, userString, userString, userString, 0);
@@ -108,7 +108,7 @@ public class MainController {
 	}
 	
 	public static void main(String[] args) {
-		
+		DatabaseConnectivity.openConnection();
 		MainController sessionController = new MainController();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		

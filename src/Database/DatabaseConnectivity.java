@@ -6,27 +6,34 @@ import java.sql.*;
 public class DatabaseConnectivity{  
 
 	// Variables for connecting to database
-	private static final String DB_DRIVER_PATH = "com.mysql.jdbc.Driver";
-	private static final String CONNECTION_STRING = "jdbc:mysql://localhost:3306/workoutLog?autoReconnect=true&useSSL=false";
+	private static final String DB_DRIVER_PATH = "com.mysql.cj.jdbc.Driver";
+	private static final String CONNECTION_STRING = "jdbc:mysql://localhost:3306/workoutlog?autoReconnect=true&useSSL=false";
 	private static final String USER = "root";
 	private static final String PASS = "password";
 
 	// Variables for executing queries
 	private static Connection con;
 	private static ResultSet rs;
-	private static Statement stmt;
-
+	private static boolean rs1;
+	private static PreparedStatement preppedStatement;
+	
+	/*
+	static {
+		openConnection();
+	}*/
+	
 	// Function for executing
 	public static ResultSet executeGetQuery(String query) {
-
+		preppedStatement = null;
+		rs = null;
 		try{  
-
+			preppedStatement = con.prepareStatement(query);
 			// Prepare your statement 
-			stmt=con.createStatement();  
+			//stmt=con.createStatement();  
 			
 			// Execute query and return object
-			rs=stmt.executeQuery(query);  
-
+			//rs=stmt.executeQuery(query);  
+			rs = preppedStatement.executeQuery();
 		// if query fails	
 		}catch(SQLException e){ 
 			System.out.println(e);
@@ -38,11 +45,14 @@ public class DatabaseConnectivity{
 
 		// Function for executing
 	public static boolean executeSetQuery(String queryString) {
+		preppedStatement = null;
+		rs1 = false;
 		try{  
 			// Prepare your statement 
-			stmt=con.createStatement();  
-			stmt.executeUpdate(queryString);
-
+			//stmt=con.createStatement();  
+			//stmt.executeUpdate(queryString);
+			preppedStatement = con.prepareStatement(queryString);
+			rs1 = preppedStatement.execute();
 		// if query fails	
 		}catch(SQLException e){ 
 			System.out.println(e);
@@ -55,6 +65,7 @@ public class DatabaseConnectivity{
 
 	// Open SQL connection
 	public static void openConnection() {
+		con = null;
 		try{  
 			// Find drivers
 			Class.forName(DB_DRIVER_PATH);  
@@ -63,7 +74,7 @@ public class DatabaseConnectivity{
 			con=DriverManager.getConnection(CONNECTION_STRING,USER,PASS);  
 
 		}catch(Exception e){
-		 System.out.println(e);
+		 System.out.println("Can't open connection");
 		}  		
 	}
 
@@ -81,11 +92,13 @@ public class DatabaseConnectivity{
 	}
 
 
-
-	/*// Main
+/*
+	// Main
 	public static void main(String args[]){
 		// test
+		ResultSet rs = null;
 		try{
+			System.out.println("HEUEHFANMD");
 			openConnection();
 			//ResultSet rs = executeMyQuery("SELECT * FROM Exercise");
 			//int rs = executeUpdate("INSERT INTO Exercise VALUES(1,'Petter', 'har bursdag);");
@@ -96,7 +109,7 @@ public class DatabaseConnectivity{
 				System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getString(3)); 
 			}		
 
-			boolean completed = executeSetQuery("INSERT INTO Exercise ", "VALUES (18, 'Petter', 'har bursdag')");
+			boolean completed = executeSetQuery("INSERT INTO Exercise VALUES (18, 'Petter', 'har bursdag')");
 			System.out.println(completed);
 
 			rs = executeGetQuery("SELECT * FROM Exercise");			
