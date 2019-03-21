@@ -32,26 +32,52 @@ public class MainController {
 		}
 		
 		switch (this.controllerState) {
+		//State in which we descide wich mode we will enter and print the neccessary instructions
 		case INIT:
 			switch (userString) {
 			case "1":
-				System.out.println("Please input the exercise data in the following format \"name, description, equipment ID\")");
+				System.out.println("Please input the exercise data in the following format \"name, description, equipment ID\", if an equpment is not needed set the last parameter to NULL)");
 				this.controllerState = ControllerState.INSERT_EXERCISE;
 				return;
 			case "2":
-				System.out.println("Please input the Workout data in the following format (date, yime)");
-				this.controllerState = ControllerState.INSERT_EQUIPMENT;
+				System.out.println("Please input the Workout data in the following format (date, time)");
+				this.controllerState = ControllerState.INSERT_EXERCISE_INTO_WORKOUT;
 				return;
 			case "3":
-				System.out.println("Please input the excercise groupt data in the following format (date, desc)");
-				this.controllerState = ControllerState.INSERT_EXERCISE_GROUP;
-				return;
-			case "4":
 				System.out.println("Please input the equipment data in the following format (date, desc)");
 				this.controllerState = ControllerState.INSERT_EQUIPMENT;
 				return;
+			case "4":
+				System.out.println("Please input the group data in the following format (date, desc)");
+				this.controllerState = ControllerState.INSERT_EXERCISE_GROUP;
+				return;
 			case "5":
 				Handler.showAllExercises();
+				return;
+			case "6":
+				Handler.showAllWorkouts();
+				return;
+			case "7":
+				Handler.showAllEquipment();
+				return;
+			case "8":
+				Handler.showAllGroups();
+				return;
+			case "9":
+				System.out.println("Please input the group for which you whish to se the exercises:");
+				this.controllerState = ControllerState.INSERT_GROUP_NUMBER_FOR_VIEWING_EXERCISES;
+				return;
+			case "10":
+				System.out.println("Please input the amount of the last completed workouts you whish to see:");
+				this.controllerState = ControllerState.INSERT_NUMBER_FOR_VIEWING_LATEST_WORKOUTS;
+				return;
+			case "11":
+				//TODO: Discuss with Petter the desired input format
+				System.out.println("Please input the the exercise ID and the time interval in the following format: \"ID\",\"DD.MM.YYYY\",\\\"DD.MM.YYYY\\\"");
+				this.controllerState = ControllerState.INSERT_NUMBER_FOR_VIEWING_LATEST_WORKOUTS;
+				return;
+			case "12":
+				Handler.showMostFrequentExercise();
 				return;
 			default:
 				break;
@@ -109,6 +135,8 @@ public class MainController {
 	
 	public static void main(String[] args) {
 		
+		DatabaseConnectivity.openConnection();
+		
 		MainController sessionController = new MainController();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		
@@ -116,11 +144,16 @@ public class MainController {
 		System.out.println("Velg mellom disse alternativene! (Choose between the following alternatives:)"
 				+ "\n 1. Register an excercise"
 				+ "\n 2. Register a workout"
-				+ "\n 3. Register something"
-				+ "\n 4. See the n last workouts"
-				+ "\n 5. Show all Exercises in the database"
-				+ "\n 6. Show all Equpment in the database"
-				+ "");
+				+ "\n 3. Register an equipment"
+				+ "\n 4. Register an exercise group"
+				+ "\n 5. Show all exercises in the database"
+				+ "\n 6. Show all workouts in the database"
+				+ "\n 7. Show all eqipment in the database"
+				+ "\n 8. Show all exercise groups in the database"
+				+ "\n 9. Show all exercises in a group"				
+				+ "\n 10. See the n last workouts with notes"
+				+ "\n 11. See the results of one exercise in a given time interval"
+				+ "\n 12. See the most frequent exercise");
 		
 		
 		
