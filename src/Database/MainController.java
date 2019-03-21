@@ -1,24 +1,25 @@
-package Database;
+package src.Database;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import Database.ControllerState;
 import classes.*;
 
 //En klasse som inneholder all logikk rundt brukeropplevelsen
 public class MainController {
 	public ControllerState controllerState;
 	public Workout newWorkout;
-	public ArrayList<Exercise> exerciseArray;
+	public ArrayList<ExerciseInfo> exerciseInfos;
 	public Exercise newExercise = new Exercise("name", "desc");
 	
 	
 	public MainController() {
 		this.controllerState = ControllerState.INIT;
 		this.newWorkout = new Workout("name", "desc", "date", "time", "dur", 5);
-		this.exerciseArray = new ArrayList<Exercise>();
+		this.exerciseInfos = new ArrayList<ExerciseInfo>();
 	}
 	
 	//Takes input and responds to the user and changes the state accordingly 
@@ -36,12 +37,12 @@ public class MainController {
 		case INIT:
 			switch (userString) {
 			case "1":
-				System.out.println("Please input the exercise data in the following format \"name, description, equipment ID\", if an equpment is not needed set the last parameter to NULL)");
+				System.out.println("Please input the exercise data in the following format \"name, description, equipment ID\", if an equpment is not needed set the last parameter to -1)");
 				this.controllerState = ControllerState.INSERT_EXERCISE;
 				return;
 			case "2":
-				System.out.println("Please input the Workout data in the following format (date, time)");
-				this.controllerState = ControllerState.INSERT_EXERCISE_INTO_WORKOUT;
+				System.out.println("Please input the Workout data in the following format name, description, date, time, duration, workoutFeat");
+				this.controllerState = ControllerState.CREATE_WORKOUT;
 				return;
 			case "3":
 				System.out.println("Please input the equipment data in the following format (date, desc)");
@@ -84,39 +85,42 @@ public class MainController {
 			}
 			break;
 		case INSERT_EXERCISE:
-			// Will take infor that is relevant for both sublclasses of the exercise class. Will then dfference depending on the input
-			// 
-			
-			// Will treat the user input as a touple that describes an exercise
-			userStringSplit = userString.split(", ");
-			this.newExercise = new Exercise(userStringSplit[0], userStringSplit[1]);
-			if(userStringSplit[5] == "true") {
-				this.controllerState = ControllerState.INSERT_EXERCISE_WITH_EQUIPMENT;
+			try {
+				// Will treat the user input as a touple that describes an exercise WITH out WITHOUT an equipment
+				userStringSplit = userString.split(", ");
+				this.newExercise = new Exercise(userStringSplit[0], userStringSplit[1]);
+				Handler.registerExercise(this.newExercise, userStringSplit[2]);
+			} catch (Exception e) {
+				System.out.println(e.toString());
 			}
 			
-			
-			
 		case CREATE_WORKOUT:
-
 			try {
 				userStringSplit = userString.split(", ");
-				Workout newWorkOut = new Workout(userString, userString, userString, userString, userString, 0);
 				this.newWorkout = new Workout(userStringSplit[0], userStringSplit[1], userStringSplit[2], userStringSplit[3], userStringSplit[4], Integer.parseInt(userStringSplit[5]));
 				this.exerciseArray.clear();
-				System.out.println("Registrated the Workout successfully, please insert the exercise data on the desired format. Write \"done\" when done.");
+				Handler.showAllExercises();
 				this.controllerState = ControllerState.INSERT_EXERCISE_INTO_WORKOUT;
+				System.out.println("Registrated the Workout successfully, please insert the exercise ID, weight, excersiceFeat, numberOfSets. Write \"done\" when done.");
 			} catch (Exception e) {
-				System.out.println("Error during registration. Try again!");
+				System.out.println("Error during registration. Try again!" + e.toString());
 			}
 			
 			break;
 		case INSERT_EXERCISE_INTO_WORKOUT:
 			if(userString == "done") {
 				//Trigger method in Handler to save the Workout object with the list of Exercises
+				this.newWorkout.addExerciseAndInfo(this.exerciseInfos);
+				Handler.registerWorkout(this.newWorkout);
+				this.controllerState = ControllerState.INIT;
 			}
-			// Will treat the inout as a new exercise that will be added to the List
-			
-			
+			try {
+				// Will treat the input as a exercise ID and info.
+				userStringSplit = userString.split(", ");
+				this.exerciseInfos.add(new ExerciseInfo(userStringSplit[0], userStringSplit[1], userStringSplit[2]));
+			} catch (Exception e) {
+				System.out.println("Error during regestration of exercise: " + e.toString());
+			}
 			break;
 		case GET_EXCERSICE_IN_GROUP:
 				
