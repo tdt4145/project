@@ -12,6 +12,7 @@ import classes.*;
 public class MainController {
 	public ControllerState controllerState;
 	public Workout newWorkout;
+	public Equipment newEquipment;
 	public ArrayList<ExerciseInfo> exerciseInfos;
 	public Exercise newExercise = new Exercise("name", "desc");
 	
@@ -45,11 +46,11 @@ public class MainController {
 				this.controllerState = ControllerState.CREATE_WORKOUT;
 				return;
 			case "3":
-				System.out.println("Please input the equipment data in the following format (date, desc)");
+				System.out.println("Please input the equipment data in the following format (name, desc)");
 				this.controllerState = ControllerState.INSERT_EQUIPMENT;
 				return;
 			case "4":
-				System.out.println("Please input the group data in the following format (date, desc)");
+				System.out.println("Please input the group data in the following format (name, desc)");
 				this.controllerState = ControllerState.INSERT_EXERCISE_GROUP;
 				return;
 			case "5":
@@ -93,7 +94,17 @@ public class MainController {
 			} catch (Exception e) {
 				System.out.println(e.toString());
 			}
-			
+		
+		case INSERT_EQUIPMENT:
+			try {
+				userStringSplit = userString.split(", ");
+				System.out.println(userStringSplit[1]);
+				this.newEquipment = new Equipment(userStringSplit[0], userStringSplit[1]);
+				boolean k = Handler.registerEquipment(this.newEquipment);
+			} catch (Exception e) {
+				System.out.println("Error during registration of equipment. Try again!" + e.toString());
+			}
+		
 		case CREATE_WORKOUT:
 			try {
 				userStringSplit = userString.split(", ");

@@ -92,7 +92,7 @@ public class Handler {
   }
 
   public static boolean registerEquipment(Equipment equipment){
-    String queryString = "INSERT INTO Equipment VALUES (" + equipment.name + ", " + equipment.description + ");";
+    String queryString = "INSERT INTO Equipment (name, description) VALUES ('" + equipment.name + "', '" + equipment.description + "');";
     boolean rs = DatabaseConnectivity.executeSetQuery(queryString);
     return rs;
   }
