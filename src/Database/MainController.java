@@ -97,7 +97,7 @@ public class MainController {
 			
 			
 		case CREATE_WORKOUT:
-			// Vil her be brukeren om å skrive inn en gyldig tuppel for å lage et workout-objekt
+
 			try {
 				userStringSplit = userString.split(", ");
 				Workout newWorkOut = new Workout(userString, userString, userString, userString, userString, 0);
@@ -154,8 +154,6 @@ public class MainController {
 				+ "\n 10. See the n last workouts with notes"
 				+ "\n 11. See the results of one exercise in a given time interval"
 				+ "\n 12. See the most frequent exercise");
-		
-		
 		
 		while(true) {
 	        String userString = null;
