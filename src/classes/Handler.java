@@ -135,19 +135,27 @@ public class Handler {
     return isOK;
   }
   
-  public static boolean registerExerciseGroup(String name, String description, ArrayList<Exercise> exercises) throws SQLException{
-	    String sqlString = "INSERT INTO ExerciseGroup VALUES (" + name + ", " + description + ");";
+  public static boolean registerExerciseGroup(String name, String description) throws SQLException{
+	    String sqlString = "INSERT INTO ExerciseGroup (name, description) VALUES ('" + name + "', '" + description + "');";
 	    boolean isOK = DatabaseConnectivity.executeSetQuery(sqlString);
 	    
+	    /*
 	    String sqlString1 = "SELECT groupID FROM ExerciseGroup ORDER BY exercise DESC LIMIT 1";
 	    ResultSet rs = DatabaseConnectivity.executeGetQuery(sqlString1);
 	    
 	    for (Exercise exercise : exercises){
 	    	String sqlString3 = "INSERT INTO ExerciseInGroup VALUES (" + exercise.exerciseID + ", " + rs.getInt(1);
 	    	isOK = DatabaseConnectivity.executeSetQuery(sqlString);
-	    }
+	    }*/
 	    return isOK;
 	  }
+  
+  public static boolean addExerciseToGroup(String groupID, String exerciseID){
+	  String sqlString = "INSERT INTO ExerciseInGroup (exerciseGroupID, exerciseID) VALUES (" + groupID + ", " + exerciseID + ");";
+	  System.out.println(sqlString);
+	  boolean isOK = DatabaseConnectivity.executeSetQuery(sqlString);
+	  return isOK;
+  }
 
   public boolean getExerciseInGroup(String exerciseGroup) {
     String queryString  = "SELECT * FROM .....";

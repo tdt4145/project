@@ -46,39 +46,45 @@ public class MainController {
 				this.controllerState = ControllerState.CREATE_WORKOUT;
 				return;
 			case "3":
-				System.out.println("Please input the equipment data in the following format (name, desc)");
+				System.out.println("Please input the new equipment data in the following format (name, desc)");
 				this.controllerState = ControllerState.INSERT_EQUIPMENT;
 				return;
 			case "4":
-				System.out.println("Please input the group data in the following format (name, desc)");
-				this.controllerState = ControllerState.INSERT_EXERCISE_GROUP;
+				System.out.println("Please input the new exercise group in the following format: (name, description)");
+				this.controllerState = ControllerState.CREATE_EXERCISE_GROUP;
 				return;
 			case "5":
+				Handler.showAllGroups();
 				Handler.showAllExercises();
+				System.out.println("Pick a group and exercise from the lists above and input the group data in the following format: (groupID, exerciseID)");
+				this.controllerState = ControllerState.INSERT_EXERCISE_INTO_GROUP;
 				return;
 			case "6":
-				Handler.showAllWorkouts();
+				Handler.showAllExercises();
 				return;
 			case "7":
-				Handler.showAllEquipment();
+				Handler.showAllWorkouts();
 				return;
 			case "8":
-				Handler.showAllGroups();
+				Handler.showAllEquipment();
 				return;
 			case "9":
+				Handler.showAllGroups();
+				return;
+			case "10":
 				System.out.println("Please input the group for which you whish to se the exercises:");
 				//this.controllerState = ControllerState.INSERT_GROUP_NUMBER_FOR_VIEWING_EXERCISES;
 				return;
-			case "10":
+			case "11":
 				System.out.println("Please input the amount of the last completed workouts you whish to see:");
 				//this.controllerState = ControllerState.INSERT_NUMBER_FOR_VIEWING_LATEST_WORKOUTS;
 				return;
-			case "11":
+			case "12":
 				//TODO: Discuss with Petter the desired input format
 				System.out.println("Please input the the exercise ID and the time interval in the following format: \"ID\",\"DD.MM.YYYY\",\\\"DD.MM.YYYY\\\"");
 				//this.controllerState = ControllerState.INSERT_NUMBER_FOR_VIEWING_LATEST_WORKOUTS;
 				return;
-			case "12":
+			case "13":
 				Handler.showMostFrequentExercise();
 				return;
 			default:
@@ -117,8 +123,15 @@ public class MainController {
 			}
 			
 			break;
+		case CREATE_EXERCISE_GROUP:
+			try {
+				userStringSplit = userString.split(", ");
+				Handler.registerExerciseGroup(userStringSplit[0], userStringSplit[1]);
+			} catch (Exception e) {
+				System.out.println("Error during registration of equipment. Try again!" + e.toString());
+			}
+			break;
 		case INSERT_EXERCISE_INTO_WORKOUT:
-			System.out.println(userString);
 			if(userString.equals("done")) {
 				System.out.println("try");
 				//Trigger method in Handler to save the Workout object with the list of Exercises
@@ -132,6 +145,14 @@ public class MainController {
 				this.exerciseInfos.add(new ExerciseInfo(userStringSplit[0], userStringSplit[1], userStringSplit[2]));
 			} catch (Exception e) {
 				System.out.println("Error during regestration of exercise: " + e.toString());
+			}
+			break;
+		case INSERT_EXERCISE_INTO_GROUP:
+			try {
+				userStringSplit = userString.split(", ");
+				Handler.addExerciseToGroup(userStringSplit[0], userStringSplit[1]);
+			} catch (Exception e) {
+				System.out.println("Error during registration of exercise into group. Try again!" + e.toString());
 			}
 			break;
 		case GET_EXCERSICE_IN_GROUP:
@@ -162,14 +183,15 @@ public class MainController {
 				+ "\n 2. Register a workout"
 				+ "\n 3. Register an equipment"
 				+ "\n 4. Register an exercise group"
-				+ "\n 5. Show all exercises in the database"
-				+ "\n 6. Show all workouts in the database"
-				+ "\n 7. Show all eqipment in the database"
-				+ "\n 8. Show all exercise groups in the database"
-				+ "\n 9. Show all exercises in a group"				
-				+ "\n 10. See the n last workouts with notes"
-				+ "\n 11. See the results of one exercise in a given time interval"
-				+ "\n 12. See the most frequent exercise");
+				+ "\n 5. Add exercise to exercise group"
+				+ "\n 6. Show all exercises in the database"
+				+ "\n 7. Show all workouts in the database"
+				+ "\n 8. Show all eqipment in the database"
+				+ "\n 9. Show all exercise groups in the database"
+				+ "\n 10. Show all exercises in a group"				
+				+ "\n 11. See the n last workouts with notes"
+				+ "\n 12. See the results of one exercise in a given time interval"
+				+ "\n 13. See the most frequent exercise");
 		
 		while(true) {
 	        String userString = null;

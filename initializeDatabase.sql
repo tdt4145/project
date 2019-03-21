@@ -1,5 +1,5 @@
 CREATE TABLE Workout (
-workoutID INT PRIMARY KEY,
+workoutID INT PRIMARY KEY AUTO_INCREMENT,
 workoutDate  DATE,
 workoutTime TIME,
 duration TIME,
@@ -55,7 +55,7 @@ CREATE TABLE ExerciseOnEquipment(
 
 CREATE TABLE ExerciseInGroup(
   exerciseID INT,
-  exercisegroupID INT,
+  exerciseGroupID INT,
   PRIMARY KEY (exerciseID, exercisegroupID),
   FOREIGN KEY(exerciseID)
       REFERENCES Exercise(exerciseID)
