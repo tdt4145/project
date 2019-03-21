@@ -4,21 +4,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Workout {
-  String name;
-  String description;
   String date;
   String time;
   String duration;
-  int workoutFeat;
+  String workoutFeat; //Number between 0 and 9
+  String workoutForm; //Number between 0 and 9
+  String note;
   List<ExerciseInfo> exerciseInfoInWorkout;
 
-  public Workout(String name, String description, String date, String time, String duration, int workoutFeat){
-    this.name = name;
-    this.description = description;
-    this.date =date;
+  public Workout(String date, String time, String duration, String workoutFeat, String workoutForm, String note){
+    this.date = date;
     this.time = time;
     this.duration = duration;
     this.workoutFeat = workoutFeat;
+    this.workoutForm = workoutForm;
+    this.note = note;
     this.exerciseInfoInWorkout = new ArrayList<ExerciseInfo>();
   }
   public void addExerciseAndInfo(ArrayList<ExerciseInfo> exerciseInfo){

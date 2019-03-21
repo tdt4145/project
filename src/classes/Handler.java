@@ -54,12 +54,12 @@ public class Handler {
   }
   
   public static boolean showAllWorkouts(){
-	    String queryString = "SELECT * FROM Workouts;";
-	    System.out.println("----- LIST OF ALL EXERCISE GROUPS -----");
+	    String queryString = "SELECT * FROM Workout;";
+	    System.out.println("----- LIST OF ALL WORKOUTS -----");
 	    ResultSet rs = DatabaseConnectivity.executeGetQuery(queryString);
 	    try {
 			while(rs.next()) {
-			    System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getString(3));
+			    System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getString(3)+ "  "+rs.getString(4)+"  "+rs.getString(5)+"  "+rs.getString(6)+ "  "+rs.getString(7));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -125,12 +125,16 @@ public class Handler {
   }
 
   public static boolean registerWorkout(Workout workout) {
-    String queryString = "INSERT INTO Workout VALUES ('" + workout.name + "', '" + workout.description + "')";
-    boolean rs = DatabaseConnectivity.executeSetQuery(queryString);
+    String queryString = "INSERT INTO Workout" +
+    		"(workoutDate, workoutTime, duration, personalForm, personalFeat, note)" +
+    		" VALUES ('" + workout.date+ "', '" + workout.time + "', '" + workout.duration + 
+    		"', '" + workout.workoutForm + "', '" + workout.workoutFeat + "', '" + workout.note + "')";
+    boolean isOK = DatabaseConnectivity.executeSetQuery(queryString);
     
     
-    return true;
+    return isOK;
   }
+  
   public static boolean registerExerciseGroup(String name, String description, ArrayList<Exercise> exercises) throws SQLException{
 	    String sqlString = "INSERT INTO ExerciseGroup VALUES (" + name + ", " + description + ");";
 	    boolean isOK = DatabaseConnectivity.executeSetQuery(sqlString);

@@ -19,7 +19,7 @@ public class MainController {
 	
 	public MainController() {
 		this.controllerState = ControllerState.INIT;
-		this.newWorkout = new Workout("name", "desc", "date", "time", "dur", 5);
+		this.newWorkout = new Workout("date", "time", "duration", "5", "5", "note");
 		this.exerciseInfos = new ArrayList<ExerciseInfo>();
 	}
 	
@@ -42,7 +42,7 @@ public class MainController {
 				this.controllerState = ControllerState.INSERT_EXERCISE;
 				return;
 			case "2":
-				System.out.println("Please input the Workout data in the following format name, description, date, time, duration, workoutFeat");
+				System.out.println("Please input the Workout data in the following format (workoutDate, workoutTime, duration, workoutForm, workoutFeat, note)");
 				this.controllerState = ControllerState.CREATE_WORKOUT;
 				return;
 			case "3":
@@ -108,7 +108,7 @@ public class MainController {
 		case CREATE_WORKOUT:
 			try {
 				userStringSplit = userString.split(", ");
-				this.newWorkout = new Workout(userStringSplit[0], userStringSplit[1], userStringSplit[2], userStringSplit[3], userStringSplit[4], Integer.parseInt(userStringSplit[5]));
+				this.newWorkout = new Workout(userStringSplit[0], userStringSplit[1], userStringSplit[2], userStringSplit[3], userStringSplit[4], userStringSplit[5]);
 				Handler.showAllExercises();
 				this.controllerState = ControllerState.INSERT_EXERCISE_INTO_WORKOUT;
 				System.out.println("Registrated the Workout successfully, please insert the exercise ID, weight, excersiceFeat, numberOfSets. Write \"done\" when done.");
