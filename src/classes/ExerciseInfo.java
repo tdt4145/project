@@ -1,11 +1,11 @@
 package classes;
 
 public class ExerciseInfo{
-  int exerciseFeat;
-  int weight;
-  int numberOfSets;
+  String exerciseFeat;
+  String weight;
+  String numberOfSets;
 
-  public ExerciseInfo(int exerciseFeat, int weight, int numberOfSets){
+  public ExerciseInfo(String exerciseFeat, String weight, String numberOfSets){
     this.exerciseFeat = exerciseFeat;
     this.weight = weight;
     this.numberOfSets = numberOfSets;

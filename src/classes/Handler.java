@@ -97,7 +97,7 @@ public class Handler {
     return rs;
   }
 
-  public static boolean registerExercise(Exercise exercise, int equipmentID){
+  public static boolean registerExercise(Exercise exercise, String equipmentID){
     String sqlString1 = "INSERT INTO Exercise VALUES (" + exercise.name + ", " + exercise.description + ");";
     boolean isOK = DatabaseConnectivity.executeSetQuery(sqlString1);
     
@@ -111,7 +111,7 @@ public class Handler {
 		e.printStackTrace();
 	}
     
-    String sqlString3 = "INSERT INTO ExerciseOnEquipment VALUES (" + exerciseID + ", " + Integer.toString(equipmentID) + ");";
+    String sqlString3 = "INSERT INTO ExerciseOnEquipment VALUES (" + exerciseID + ", " + equipmentID + ");";
     isOK = DatabaseConnectivity.executeSetQuery(sqlString3);
     return isOK;
   }

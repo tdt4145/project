@@ -1,4 +1,4 @@
-package src.Database;
+package Database;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -66,16 +66,16 @@ public class MainController {
 				return;
 			case "9":
 				System.out.println("Please input the group for which you whish to se the exercises:");
-				this.controllerState = ControllerState.INSERT_GROUP_NUMBER_FOR_VIEWING_EXERCISES;
+				//this.controllerState = ControllerState.INSERT_GROUP_NUMBER_FOR_VIEWING_EXERCISES;
 				return;
 			case "10":
 				System.out.println("Please input the amount of the last completed workouts you whish to see:");
-				this.controllerState = ControllerState.INSERT_NUMBER_FOR_VIEWING_LATEST_WORKOUTS;
+				//this.controllerState = ControllerState.INSERT_NUMBER_FOR_VIEWING_LATEST_WORKOUTS;
 				return;
 			case "11":
 				//TODO: Discuss with Petter the desired input format
 				System.out.println("Please input the the exercise ID and the time interval in the following format: \"ID\",\"DD.MM.YYYY\",\\\"DD.MM.YYYY\\\"");
-				this.controllerState = ControllerState.INSERT_NUMBER_FOR_VIEWING_LATEST_WORKOUTS;
+				//this.controllerState = ControllerState.INSERT_NUMBER_FOR_VIEWING_LATEST_WORKOUTS;
 				return;
 			case "12":
 				Handler.showMostFrequentExercise();
@@ -98,7 +98,6 @@ public class MainController {
 			try {
 				userStringSplit = userString.split(", ");
 				this.newWorkout = new Workout(userStringSplit[0], userStringSplit[1], userStringSplit[2], userStringSplit[3], userStringSplit[4], Integer.parseInt(userStringSplit[5]));
-				this.exerciseArray.clear();
 				Handler.showAllExercises();
 				this.controllerState = ControllerState.INSERT_EXERCISE_INTO_WORKOUT;
 				System.out.println("Registrated the Workout successfully, please insert the exercise ID, weight, excersiceFeat, numberOfSets. Write \"done\" when done.");
